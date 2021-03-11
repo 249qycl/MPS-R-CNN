@@ -1,0 +1,50 @@
+model_name: sparse_rcnn
+data:
+  train_annotation_path: datasets\train_debug.json
+  val_annotation_path: datasets\val_debug.json
+  
+  train_img_root: F:/Download/UrbanObjectDetection/JPEGImages 
+  val_img_root: F:/Download/UrbanObjectDetection/JPEGImages
+
+  max_thresh: 160 #640
+  use_crowd: False
+  batch_size: 8
+  num_workers: 0
+  debug: False
+  debug_ratio: 0.1
+  remove_blank: True
+  load_model: False
+
+model:
+  num_cls: 7
+  backbone: resnet50
+  pretrained: True
+  alpha: 0.25
+  gamma: 2.0
+  iou_type: giou
+  iou_weights: 2.0
+  iou_cost: 1.0
+  cls_weights: 2.0
+  cls_cost: 1.0
+  l1_weights: 5.0
+  l1_cost: 1.0
+  num_proposals: 16
+
+optim:
+  optimizer: AdamW
+  lr: 0.00005 #0.000025
+  milestones: [27,33]
+  warm_up_percent: 0.003 #about 29 iters
+  weight_decay: 0.0001
+  epochs: 36
+  gamma: 1.0
+  alpha: 0.1
+  warm_up_factor: 0.01
+  amp: True
+
+val:
+  interval: 1
+  weight_path: weights
+
+
+gpus: "0" 
