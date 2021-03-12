@@ -9,7 +9,7 @@ data:
   max_thresh: 160 #640
   use_crowd: False
   batch_size: 8
-  num_workers: 0
+  num_workers: 2
   debug: False
   debug_ratio: 0.1
   remove_blank: True
@@ -28,7 +28,7 @@ model:
   cls_cost: 1.0
   l1_weights: 5.0
   l1_cost: 1.0
-  num_proposals: 16
+  num_proposals: 64
 
 optim:
   optimizer: AdamW
@@ -44,7 +44,7 @@ optim:
 
 val:
   interval: 1
-  weight_path: weights
-
+  # weight_path: weights
+  weight_path: E:\WorkSpace\SpareRCNN\weights\SparseR-CNN
 
 gpus: "0" 

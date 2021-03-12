@@ -338,7 +338,6 @@ def post_process(cls_predict, box_predict, shapes,**cfg):
     assert len(cls_predict) == len(box_predict)
     scores = cls_predict.sigmoid()
     result = list()
-    #ret=dict()
     labels = torch.arange(cfg['num_cls'], device=cls_predict.device). \
         unsqueeze(0).repeat(cfg['num_proposals'], 1).flatten(0, 1)
     for score, box, shape in zip(scores, box_predict, shapes):
@@ -347,10 +346,7 @@ def post_process(cls_predict, box_predict, shapes,**cfg):
         box = box.view(-1, 1, 4).repeat(1, cfg['num_cls'], 1).view(-1, 4)
         x1y1x2y2 = box[topk_indices]
         x1y1x2y2=clip_boxes_to_image(x1y1x2y2, (shape[0],shape[1])) #h w
-        # x1y1x2y2[:, [0, 2]] = x1y1x2y2[:, [0, 2]].clamp(min=0, max=shape[1])
-        # x1y1x2y2[:, [1, 3]] = x1y1x2y2[:, [1, 3]].clamp(min=0, max=shape[0])
         result.append(torch.cat([x1y1x2y2, scores_per_image[:, None], labels_per_image[:, None]], dim=-1))
-    #ret['predicts'] = c
     return result
 
 
