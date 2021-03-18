@@ -21,7 +21,7 @@ model:
   pretrained: True
   alpha: 0.25
   gamma: 2.0
-  iou_type: giou
+  iou_type: giou #g d c 均已实现
   iou_weights: 2.0
   iou_cost: 1.0
   cls_weights: 2.0
